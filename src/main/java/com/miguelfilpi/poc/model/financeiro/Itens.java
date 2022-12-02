@@ -10,8 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Itens {
-    @Id
-    private long id;
+
     @Column
     private double Ordem;
     @Column

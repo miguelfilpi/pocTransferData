@@ -13,12 +13,10 @@ import java.util.List;
 @Table(name = "DW_FINANCEIRO")
 public class Financeiro {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     @Column
     @SerializedName("Tipo financeiro")
     private String tipo_financeiro;
+    @Id
     @Column
     private int cdFinanceiro;
     @Column
@@ -107,16 +105,16 @@ public class Financeiro {
     @Column
     private int cdMovimento;
 
-    //@OneToMany(targetEntity = Itens.class)
-    @ElementCollection
+    @OneToMany(targetEntity = Itens.class)
+    @JoinColumn(name = "cdFinanceiro")
     private List<Itens> Itens;
 
     @OneToMany(targetEntity = Recebimento.class)
-    @ElementCollection
+    @JoinColumn(name = "cdFinanceiro")
     private List<Recebimento> Recebimento;
 
     @OneToMany(targetEntity = TipoFornecedor.class)
-    @ElementCollection
+    @JoinColumn(name = "cdFinanceiro")
     private List<TipoFornecedor> TipoFornecedor;
 
 }

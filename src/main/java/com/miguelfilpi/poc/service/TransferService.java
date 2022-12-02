@@ -2,11 +2,7 @@ package com.miguelfilpi.poc.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.miguelfilpi.poc.model.comercial.Comercial;
 import com.miguelfilpi.poc.model.financeiro.Financeiro;
-import com.miguelfilpi.poc.model.operacional.Operacional;
-import com.miguelfilpi.poc.repository.FinanceiroRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +19,7 @@ public class TransferService {
 
     private static RequestBodyService requestBodyService = new RequestBodyService();
     private static RequestTokenService requestTokenService = new RequestTokenService();
+
     public String retrieveBearerToken() throws URISyntaxException, IOException, InterruptedException {
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestTokenService);
@@ -80,7 +77,6 @@ public class TransferService {
 
         Gson gsonFinanceiro = new Gson();
         String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyServiceFinanceiro);
-        System.out.println(jsonResponseFinanceiro);
 
         HttpRequest postRequestFinanceiro = HttpRequest.newBuilder()
                 .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/financeiro"))
@@ -98,4 +94,5 @@ public class TransferService {
         List<Financeiro> enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
         return enums;
     }
+
 }
