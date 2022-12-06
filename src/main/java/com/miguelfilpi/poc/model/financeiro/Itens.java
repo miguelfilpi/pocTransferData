@@ -2,15 +2,17 @@ package com.miguelfilpi.poc.model.financeiro;
 
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-@EqualsAndHashCode
+
 @Getter
 @Setter
 @Entity
+@Table(name = "DW_FINANCEIRO_ITENS")
 public class Itens {
 
+    @Id
+    private long id;
     @Column
     private double Ordem;
     @Column
@@ -25,8 +27,8 @@ public class Itens {
     @Column
     @SerializedName("Total convertido")
     private double total_convertido;
-    @Id
-    @Column
+
+    @Column(insertable=false, nullable=true)
     private int cdFinanceiro;
     @Column
     private int cdItem;
@@ -55,4 +57,6 @@ public class Itens {
     @Column
     @SerializedName("Centro custo")
     private String centro_custo;
+
+
 }

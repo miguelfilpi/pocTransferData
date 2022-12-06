@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "DW_FINANCEIRO_RECEBIMENTO")
 public class Recebimento {
     @Id
     private long id;
@@ -27,7 +28,7 @@ public class Recebimento {
     @Column
     @SerializedName("Data inserido")
     private String data_inserido;
-    @Column
+    @Column(insertable=false, nullable=true)
     private int cdFinanceiro;
     @Column
     private int cdPagamento;

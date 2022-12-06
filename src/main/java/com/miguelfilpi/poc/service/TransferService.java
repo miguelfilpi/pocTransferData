@@ -3,6 +3,7 @@ package com.miguelfilpi.poc.service;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelfilpi.poc.model.financeiro.Financeiro;
+import com.miguelfilpi.poc.repository.FinanceiroRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -87,11 +88,11 @@ public class TransferService {
         HttpClient httpClientFinanceiro = HttpClient.newHttpClient();
 
         HttpResponse<String> postResponseFinanceiro = httpClientFinanceiro.send(postRequestFinanceiro, HttpResponse.BodyHandlers.ofString());
-        System.out.println(postResponseFinanceiro.body());
 
         //Formatando a classe Financeiro para lista -> Json comeća com [ logo indica array
         Type collectionType = new TypeToken<List<Financeiro>>(){}.getType();
         List<Financeiro> enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
+
         return enums;
     }
 
