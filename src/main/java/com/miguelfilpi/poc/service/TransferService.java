@@ -2,8 +2,9 @@ package com.miguelfilpi.poc.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.miguelfilpi.poc.model.comercial.Comercial;
 import com.miguelfilpi.poc.model.financeiro.Financeiro;
-import com.miguelfilpi.poc.repository.FinanceiroRepository;
+import com.miguelfilpi.poc.model.operacional.Operacional;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -36,38 +37,47 @@ public class TransferService {
     }
 
 
-    public void requisicaoComercial() throws URISyntaxException, IOException, InterruptedException {
+    public List<Comercial> requisicaoComercial(String token) throws URISyntaxException, IOException, InterruptedException {
         requestBodyService.setDtAberturaInicial("25/03/2022");
         requestBodyService.setDtAberturaFinal("27/03/2022");
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/comercial"))
-                .header("Authorization", "Bearer " + requestTokenService.getToken())
+                .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .build();
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> postResponseComercial = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        Type collectionType = new TypeToken<List<Comercial>>(){}.getType();
+        List<Comercial> enums = gson.fromJson(postResponseComercial.body(), collectionType);
         //comercial = gson.fromJson(postResponseComercial.body(), Comercial.class);
-        System.out.println(postResponseComercial.body());
+        //System.out.println(postResponseComercial.body());
+        return enums;
     }
 
-    public void requisicaoOperacional() throws URISyntaxException, IOException, InterruptedException {
-        //requestBodyService.setDtAberturaInicial(dtAberturaInicial);
-        //requestBodyService.setDtAberturaFinal(dtAberturaFinal);
+    public List<Operacional> requisicaoOperacional(String token) throws URISyntaxException, IOException, InterruptedException {
+
+        requestBodyService.setDtAberturaInicial("25/03/2022");
+        requestBodyService.setDtAberturaFinal("27/03/2022");
+
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
+
         HttpRequest postRequestOperacional = HttpRequest.newBuilder()
                 .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/operacional"))
-                .header("Authorization", "Bearer " + requestTokenService.getToken())
+                .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .build();
-
         HttpClient httpClientOperacional = HttpClient.newHttpClient();
         HttpResponse<String> postResponseOperacional = httpClientOperacional.send(postRequestOperacional, HttpResponse.BodyHandlers.ofString());
-        System.out.println(postResponseOperacional.body());
+
+        Type collectionType = new TypeToken<List<Operacional>>(){}.getType();
+        List<Operacional> enums = gson.fromJson(postResponseOperacional.body(), collectionType);
+        //System.out.println(postResponseOperacional.body());
+        return enums;
     }
 
     public List<Financeiro> requisicaoFinanceiro(String token) throws IOException, InterruptedException, URISyntaxException {
@@ -92,8 +102,8 @@ public class TransferService {
         //Formatando a classe Financeiro para lista -> Json comeća com [ logo indica array
         Type collectionType = new TypeToken<List<Financeiro>>(){}.getType();
         List<Financeiro> enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
-
         return enums;
     }
+
 
 }

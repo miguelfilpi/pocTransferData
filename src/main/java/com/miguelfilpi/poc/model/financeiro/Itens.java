@@ -27,7 +27,7 @@ public class Itens {
     @Column
     @SerializedName("Total convertido")
     private double total_convertido;
-
+    @Id
     @Column(insertable=false, nullable=true)
     private int cdFinanceiro;
     @Column

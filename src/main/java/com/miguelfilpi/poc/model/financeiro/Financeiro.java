@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,6 @@ public class Financeiro {
     @Column
     @SerializedName("Tipo financeiro")
     private String tipo_financeiro;
-
     @Column
     private int cdFinanceiro;
     @Column
@@ -97,15 +95,15 @@ public class Financeiro {
     @Column
     private int cdMovimento;
 
-    @OneToMany(targetEntity = Itens.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Itens.class, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<Itens> Itens ;
 
-    @OneToMany(targetEntity = Recebimento.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Recebimento.class, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<Recebimento> Recebimento ;
 
-    @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<TipoFornecedor> TipoFornecedor ;
 
