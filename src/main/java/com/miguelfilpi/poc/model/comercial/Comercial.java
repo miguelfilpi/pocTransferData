@@ -1,7 +1,7 @@
 package com.miguelfilpi.poc.model.comercial;
 
 import com.google.gson.annotations.SerializedName;
-import com.miguelfilpi.poc.model.operacional.Container;
+import com.miguelfilpi.poc.model.operacional.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -140,6 +140,96 @@ public class Comercial {
     @OneToMany(targetEntity = Container.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Container> Container;
-
-
+    @OneToMany(targetEntity = Volumes.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<Volumes> Volumes;
+    @OneToMany(targetEntity = Fornecedores.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<Fornecedores> Fornecedores;
+    @OneToMany(targetEntity = Transbordo.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<Transbordo> Transbordo;
+    @OneToMany(targetEntity = Custos.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<Custos> Custos;
+    @Column
+    @SerializedName("Responsavel Inside sales")
+    private String responsavel_inside_sales;
+    @Column
+    @SerializedName("Responsável pricing")
+    private String responsavel_pricing;
+    @Column
+    @SerializedName("Responsável vendedor")
+    private String responsavel_vendedor;
+    @Column
+    @SerializedName("Intermediário")
+    private String intermediario;
+    @Column
+    @SerializedName("Tipo de cotação")
+    private String tipo_cotacao;
+    @Column
+    private String Invoice;
+    @Column
+    @SerializedName("Referencia cliente")
+    private String referencia_cliente;
+    @Column
+    @SerializedName("Referência Agente")
+    private String referencia_agente;
+    @Column
+    @SerializedName("Purchase order")
+    private String purchase_order;
+    @Column
+    @SerializedName("Solicitação")
+    private String solicitacao;
+    @Column
+    private String NCMs;
+    @OneToMany(targetEntity = Servicos.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<Servicos> Servicos;
+    @Column
+    @SerializedName("Transit Time de")
+    private String transit_time_de;
+    @Column
+    @SerializedName("Transit Time ate")
+    private String transit_time_ate;
+    @Column
+    @SerializedName("Transit Time coleta de")
+    private String transit_time_coleta_de;
+    @Column
+    @SerializedName("Transit Time coleta ate")
+    private String transit_time_coleta_ate;
+    @Column
+    @SerializedName("Pais de entrega")
+    private String pais_entrega;
+    @Column
+    @SerializedName("Cidade de entrega")
+    private String cidade_entrega;
+    @Column
+    @SerializedName("Zipcode da Coleta")
+    private String zipcode_coleta;
+    @Column
+    @SerializedName("Zipcode Entrega")
+    private String zipcode_entrega;
+    @Column
+    @SerializedName("Observação de Rota (para cliente)")
+    private String obs_rota_cliente;
+    @Column
+    private String Contrato;
+    @Column
+    private String Produto;
+    @Column
+    @SerializedName("Fornecedor frete")
+    private String fornecedor_frete;
+    @Column
+    @SerializedName("Motivo não aprovação")
+    private String motivo_nao_aprovacao;
+    @Column
+    @SerializedName("Data envio pricing")
+    private String dt_envio_pricing;
+    @Column
+    @SerializedName("Data fim pricing")
+    private String dt_fim_pricing;
+    @Column
+    @SerializedName("Usuário abertura")
+    private String usuario_abertura;
 }

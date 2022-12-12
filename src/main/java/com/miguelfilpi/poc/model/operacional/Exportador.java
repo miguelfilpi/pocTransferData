@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "DW_OPERACIONAL_EXPORTADOR")
+@Table(name = "DM_EXPORTADOR")
 public class Exportador {
     @Id
     private long id;

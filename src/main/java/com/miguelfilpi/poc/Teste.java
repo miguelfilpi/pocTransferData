@@ -8,7 +8,8 @@ import java.net.URISyntaxException;
 public class Teste {
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
         TransferService ts = new TransferService();
-        ts.requisicaoComercial(ts.retrieveBearerToken());
-        ts.requisicaoOperacional(ts.retrieveBearerToken());
+        //ts.requisicaoComercial(ts.retrieveBearerToken());
+        //ts.requisicaoOperacional(ts.retrieveBearerToken());
+        ts.requisicaoFinanceiro(ts.retrieveBearerToken());
     }
 }

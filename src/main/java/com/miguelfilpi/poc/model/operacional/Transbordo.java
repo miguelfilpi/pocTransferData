@@ -5,12 +5,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "DW_TRANSBORDO")
-public class Transbordo {
-
+@Table(name = "DM_TRANSBORDO")
+public class Transbordo implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column
     @SerializedName("Sequência")
     private int sequencia;
@@ -18,7 +22,6 @@ public class Transbordo {
     private String Porto;
     @Column
     private int cdMovimento;
-    @Id
     @Column
     private int cdTrecho;
 

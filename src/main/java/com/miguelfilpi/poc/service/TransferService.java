@@ -98,6 +98,7 @@ public class TransferService {
         HttpClient httpClientFinanceiro = HttpClient.newHttpClient();
 
         HttpResponse<String> postResponseFinanceiro = httpClientFinanceiro.send(postRequestFinanceiro, HttpResponse.BodyHandlers.ofString());
+        System.out.println(postResponseFinanceiro.body());
 
         //Formatando a classe Financeiro para lista -> Json comeća com [ logo indica array
         Type collectionType = new TypeToken<List<Financeiro>>(){}.getType();

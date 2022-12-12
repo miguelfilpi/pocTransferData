@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "DW_OPERACIONAL_CUSTOS")
+@Table(name = "DM_CUSTOS")
 public class Custos {
     @Column
     private int Ordem;

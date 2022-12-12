@@ -5,12 +5,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "DW_OPERACIONAL_VOLUMES")
-public class Volumes {
-
+@Table(name = "DM_VOLUMES")
+public class Volumes implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column
     private int Volume;
     @Column
@@ -34,7 +38,6 @@ public class Volumes {
     @Column
     @SerializedName("Peso VGM")
     private double peso_vgm;
-    @Id
     @Column
     private int cdMovimentoEquipamento;
     @Column
