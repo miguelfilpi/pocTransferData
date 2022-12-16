@@ -19,6 +19,7 @@ import java.util.Objects;
 public class Financeiro {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     @SerializedName("Tipo financeiro")
@@ -106,6 +107,8 @@ public class Financeiro {
     @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<TipoFornecedor> TipoFornecedor ;
+    @Column
+    private String dtUltimaAtualizacao;
 
     @Override
     public boolean equals(Object o) {

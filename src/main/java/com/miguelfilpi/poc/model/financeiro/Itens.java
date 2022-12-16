@@ -12,6 +12,7 @@ import lombok.Setter;
 public class Itens {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private double Ordem;
@@ -27,8 +28,7 @@ public class Itens {
     @Column
     @SerializedName("Total convertido")
     private double total_convertido;
-    @Id
-    @Column(insertable=false, nullable=true)
+    @Column
     private int cdFinanceiro;
     @Column
     private int cdItem;

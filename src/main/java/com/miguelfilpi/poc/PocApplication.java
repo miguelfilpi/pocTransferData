@@ -43,19 +43,19 @@ public class PocApplication implements CommandLineRunner {
 		List<Financeiro> financeiroList = new ArrayList<>();
 		TransferService ts = new TransferService();
 		financeiroList = ts.requisicaoFinanceiro(ts.retrieveBearerToken());
-		financeiroRepository.saveAllAndFlush(financeiroList);
-		System.out.println("Informaćão Financeiro salva!");
 
 		List<Operacional> operacionalList = new ArrayList<>();
 		operacionalList = ts.requisicaoOperacional(ts.retrieveBearerToken());
-		operacionalRepository.saveAllAndFlush(operacionalList);
-		System.out.println("Informaćão Operacional salva!");
 
 		List<Comercial> comercialList = new ArrayList<>();
 		comercialList = ts.requisicaoComercial(ts.retrieveBearerToken());
+
 		comercialRepository.saveAllAndFlush(comercialList);
 		System.out.println("Comercial Salvo!");
-
+		operacionalRepository.saveAllAndFlush(operacionalList);
+		System.out.println("Informaćão Operacional salva!");
+		financeiroRepository.saveAllAndFlush(financeiroList);
+		System.out.println("Informaćão Financeiro salva!");
 	}
 }
 

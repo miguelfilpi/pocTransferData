@@ -181,8 +181,9 @@ public class Comercial {
     @Column
     @SerializedName("Solicitação")
     private String solicitacao;
-    @Column
-    private String NCMs;
+    @OneToMany(targetEntity = NCMs.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<NCMs> NCMs;
     @OneToMany(targetEntity = Servicos.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Servicos> Servicos;
@@ -232,4 +233,6 @@ public class Comercial {
     @Column
     @SerializedName("Usuário abertura")
     private String usuario_abertura;
+    @Column
+    private String dtUltimaAtualizacao;
 }

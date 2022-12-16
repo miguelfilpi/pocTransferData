@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "DM_IMPORTADOR")
 public class Importador {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String cdMovimento;        // valor em STRING!

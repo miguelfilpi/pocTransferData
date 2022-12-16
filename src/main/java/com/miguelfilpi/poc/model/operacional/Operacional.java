@@ -2,6 +2,7 @@ package com.miguelfilpi.poc.model.operacional;
 
 import com.google.gson.annotations.SerializedName;
 import com.miguelfilpi.poc.model.comercial.Comercial;
+import com.miguelfilpi.poc.model.comercial.NCMs;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Table(name = "DW_OPERACIONAL")
 public class Operacional implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     @Lob
@@ -409,9 +411,10 @@ public class Operacional implements Serializable {
     @OneToMany(targetEntity = Servicos.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
     private List<Servicos> Servicos;
-    @Column
-    @Lob
-    private String NCMs;
+
+    @OneToMany(targetEntity = NCMs.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private List<NCMs> NCMs;
     @OneToMany(targetEntity = Transbordo.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
     private List<Transbordo> Transbordo;
@@ -456,9 +459,9 @@ public class Operacional implements Serializable {
     @Lob
     @SerializedName("Status Ocean insights")
     private String status_ocean_insights;
-    @Column
-    @Lob
-    private String Agendas;
+    @OneToMany(targetEntity = Agendas.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
+    private List<Agendas> Agendas;
     @Column
     @Lob
     private String Status;
@@ -479,12 +482,15 @@ public class Operacional implements Serializable {
     @SerializedName("Moeda invoice")
     private String moeda_invoice;
     @Column
+    @Lob
     @SerializedName("Valor invoice")
     private String valor_invoice;           //valor em STRING!
     @Column
+    @Lob
     @SerializedName("MC REAL")
     private double mc_real;
     @Column
+    @Lob
     @SerializedName("Profit agente")
     private String profit_agente;           //valor em STRING!
     @Column
@@ -497,7 +503,6 @@ public class Operacional implements Serializable {
     @SerializedName("Peso bruto")
     private String peso_bruto;           //valor em STRING!
     @Column
-    @Lob
     @SerializedName("Debit/Credit")
     private String debito_credito;
     @Column
@@ -519,6 +524,11 @@ public class Operacional implements Serializable {
     @Column
     @SerializedName("Usuário abertura")
     private String usuario_abertura;
+    @Column
+    @SerializedName("Quantidade containers")
+    private String qtd_containers;
+    @Column
+    private String dtUltimaAtualizacao;
 
     @Override
     public boolean equals(Object o) {

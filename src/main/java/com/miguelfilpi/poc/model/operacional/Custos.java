@@ -10,6 +10,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "DM_CUSTOS")
 public class Custos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column
     private int Ordem;
     @Column
@@ -47,7 +50,7 @@ public class Custos {
     private String Sacado;
     @Column
     private int cdMovimento;
-    @Id
+
     @Column
     private int cdCusto;
 }

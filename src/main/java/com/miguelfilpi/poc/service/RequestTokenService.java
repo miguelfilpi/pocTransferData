@@ -7,7 +7,7 @@ public class RequestTokenService {
 
     private String dsEmail = "skyline.integracao@skychart.com.br";
 
-    private String dsSenha = "6P03AlWP@vwqhsIQ$kbH*RaGC0WS80";
+    private String dsSenha = "CIPOEJkZ7atPF@cta6tKLU@DuJcUAs";
     private String token;
 
     public String getDsEmail() {

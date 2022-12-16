@@ -11,6 +11,7 @@ import lombok.Setter;
 @Table(name = "DM_RECEBIMENTO")
 public class Recebimento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String Conta;

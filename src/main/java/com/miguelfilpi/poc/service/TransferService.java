@@ -26,7 +26,7 @@ public class TransferService {
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestTokenService);
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/login"))
+                .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/login"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .build();
@@ -38,12 +38,12 @@ public class TransferService {
 
 
     public List<Comercial> requisicaoComercial(String token) throws URISyntaxException, IOException, InterruptedException {
-        requestBodyService.setDtAberturaInicial("25/03/2022");
-        requestBodyService.setDtAberturaFinal("27/03/2022");
+        requestBodyService.setDtAberturaInicial("10/10/2022");
+        requestBodyService.setDtAberturaFinal("14/12/2022");
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/comercial"))
+                .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/comercial"))
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
@@ -52,21 +52,21 @@ public class TransferService {
         HttpResponse<String> postResponseComercial = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
         Type collectionType = new TypeToken<List<Comercial>>(){}.getType();
         List<Comercial> enums = gson.fromJson(postResponseComercial.body(), collectionType);
-        //comercial = gson.fromJson(postResponseComercial.body(), Comercial.class);
+
         //System.out.println(postResponseComercial.body());
         return enums;
     }
 
     public List<Operacional> requisicaoOperacional(String token) throws URISyntaxException, IOException, InterruptedException {
 
-        requestBodyService.setDtAberturaInicial("25/03/2022");
-        requestBodyService.setDtAberturaFinal("27/03/2022");
+        requestBodyService.setDtAberturaInicial("10/10/2022");
+        requestBodyService.setDtAberturaFinal("14/12/2022");
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
 
         HttpRequest postRequestOperacional = HttpRequest.newBuilder()
-                .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/operacional"))
+                .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/operacional"))
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
@@ -76,21 +76,21 @@ public class TransferService {
 
         Type collectionType = new TypeToken<List<Operacional>>(){}.getType();
         List<Operacional> enums = gson.fromJson(postResponseOperacional.body(), collectionType);
-        //System.out.println(postResponseOperacional.body());
+        System.out.println(postResponseOperacional.body());
         return enums;
     }
 
     public List<Financeiro> requisicaoFinanceiro(String token) throws IOException, InterruptedException, URISyntaxException {
 
         RequestBodyService requestBodyServiceFinanceiro = new RequestBodyService();
-        requestBodyServiceFinanceiro.setDtAberturaInicial("22/02/2022");
-        requestBodyServiceFinanceiro.setDtAberturaFinal("24/02/2022");
+        requestBodyServiceFinanceiro.setDtAberturaInicial("10/10/2022");
+        requestBodyServiceFinanceiro.setDtAberturaFinal("14/12/2022");
 
         Gson gsonFinanceiro = new Gson();
         String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyServiceFinanceiro);
 
         HttpRequest postRequestFinanceiro = HttpRequest.newBuilder()
-                .uri(new URI("https://sistema.skychart.com.br/apiskyline-treinamento/api/IntegracaoBi/financeiro"))
+                .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/financeiro"))
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonResponseFinanceiro))
