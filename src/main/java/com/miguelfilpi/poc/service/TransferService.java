@@ -38,8 +38,8 @@ public class TransferService {
 
 
     public List<Comercial> requisicaoComercial(String token) throws URISyntaxException, IOException, InterruptedException {
-        requestBodyService.setDtAberturaInicial("10/10/2022");
-        requestBodyService.setDtAberturaFinal("14/12/2022");
+        requestBodyService.setDtAberturaInicial("01/11/2022");
+        requestBodyService.setDtAberturaFinal("30/11/2022");
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
         HttpRequest postRequest = HttpRequest.newBuilder()
@@ -53,14 +53,14 @@ public class TransferService {
         Type collectionType = new TypeToken<List<Comercial>>(){}.getType();
         List<Comercial> enums = gson.fromJson(postResponseComercial.body(), collectionType);
 
-        //System.out.println(postResponseComercial.body());
+        System.out.println(postResponseComercial.body());
         return enums;
     }
 
     public List<Operacional> requisicaoOperacional(String token) throws URISyntaxException, IOException, InterruptedException {
 
-        requestBodyService.setDtAberturaInicial("10/10/2022");
-        requestBodyService.setDtAberturaFinal("14/12/2022");
+        requestBodyService.setDtAberturaInicial("01/11/2022");
+        requestBodyService.setDtAberturaFinal("30/11/2022");
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
@@ -83,8 +83,8 @@ public class TransferService {
     public List<Financeiro> requisicaoFinanceiro(String token) throws IOException, InterruptedException, URISyntaxException {
 
         RequestBodyService requestBodyServiceFinanceiro = new RequestBodyService();
-        requestBodyServiceFinanceiro.setDtAberturaInicial("10/10/2022");
-        requestBodyServiceFinanceiro.setDtAberturaFinal("14/12/2022");
+        requestBodyServiceFinanceiro.setDtAberturaInicial("01/11/2022");
+        requestBodyServiceFinanceiro.setDtAberturaFinal("30/11/2022");
 
         Gson gsonFinanceiro = new Gson();
         String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyServiceFinanceiro);
