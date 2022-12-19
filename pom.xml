@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>com.miguelfilpi</groupId>
 	<artifactId>poc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>V1</version>
+	<packaging>jar</packaging>
 	<name>poc</name>
 	<description>PoC da utilização de um aplicativo para salvar API em um banco de dados mySql</description>
 	<properties>
