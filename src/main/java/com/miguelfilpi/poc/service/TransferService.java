@@ -14,6 +14,10 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +25,18 @@ public class TransferService {
 
     private static RequestBodyService requestBodyService = new RequestBodyService();
     private static RequestTokenService requestTokenService = new RequestTokenService();
+
+    public String dataInicial(){
+        final DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE,-90);
+        return df.format(c.getTime());
+    }
+    public String dataFinal(){
+        final DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        return df.format(c.getTime());
+    }
 
     public String retrieveBearerToken() throws URISyntaxException, IOException, InterruptedException {
         Gson gson = new Gson();
@@ -33,13 +49,13 @@ public class TransferService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> postResponse = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
         requestTokenService = gson.fromJson(postResponse.body(), RequestTokenService.class);
+        requestBodyService.setDtAberturaInicial(dataInicial());
+        requestBodyService.setDtAberturaFinal(dataFinal());
         return requestTokenService.getToken();
     }
 
 
     public List<Comercial> requisicaoComercial(String token) throws URISyntaxException, IOException, InterruptedException {
-        requestBodyService.setDtAberturaInicial("01/11/2022");
-        requestBodyService.setDtAberturaFinal("30/11/2022");
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
         HttpRequest postRequest = HttpRequest.newBuilder()
@@ -58,9 +74,6 @@ public class TransferService {
     }
 
     public List<Operacional> requisicaoOperacional(String token) throws URISyntaxException, IOException, InterruptedException {
-
-        requestBodyService.setDtAberturaInicial("01/11/2022");
-        requestBodyService.setDtAberturaFinal("30/11/2022");
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
@@ -82,12 +95,8 @@ public class TransferService {
 
     public List<Financeiro> requisicaoFinanceiro(String token) throws IOException, InterruptedException, URISyntaxException {
 
-        RequestBodyService requestBodyServiceFinanceiro = new RequestBodyService();
-        requestBodyServiceFinanceiro.setDtAberturaInicial("01/11/2022");
-        requestBodyServiceFinanceiro.setDtAberturaFinal("30/11/2022");
-
         Gson gsonFinanceiro = new Gson();
-        String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyServiceFinanceiro);
+        String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyService);
 
         HttpRequest postRequestFinanceiro = HttpRequest.newBuilder()
                 .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/financeiro"))
@@ -105,6 +114,4 @@ public class TransferService {
         List<Financeiro> enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
         return enums;
     }
-
-
 }

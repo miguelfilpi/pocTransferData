@@ -61,31 +61,6 @@ public class PocApplication implements CommandLineRunner {
 		financeiroRepository.saveAllAndFlush(financeiroList);
 		System.out.println("Informaćão Financeiro salva!");
 
-		/*Timer timer = new Timer();
-		TimerTask tarefa = new TimerTask() {
-			@Override
-			public void run() {
-				List<Financeiro> financeiroList = new ArrayList<>();
-				List<Operacional> operacionalList = new ArrayList<>();
-				List<Comercial> comercialList = new ArrayList<>();
-				TransferService ts = new TransferService();
-				try{
-					financeiroList = ts.requisicaoFinanceiro(ts.retrieveBearerToken());
-					operacionalList = ts.requisicaoOperacional(ts.retrieveBearerToken());
-					comercialList = ts.requisicaoComercial(ts.retrieveBearerToken());
-					comercialRepository.saveAllAndFlush(comercialList);
-					System.out.println("Comercial Salvo!");
-					operacionalRepository.saveAllAndFlush(operacionalList);
-					System.out.println("Informaćão Operacional salva!");
-					financeiroRepository.saveAllAndFlush(financeiroList);
-					System.out.println("Informaćão Financeiro salva!");
-				} catch (RuntimeException | URISyntaxException | IOException | InterruptedException e){
-					e.printStackTrace();
-				}
-			}
-		};
-*/
-
 	}
 
 
