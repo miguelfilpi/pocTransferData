@@ -2,10 +2,7 @@ package com.miguelfilpi.poc.model.financeiro;
 
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,17 +11,16 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "DW_FINANCEIRO")
 public class Financeiro {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Column
     @SerializedName("Tipo financeiro")
     private String tipo_financeiro;
     @Column
+    @Id
     private int cdFinanceiro;
     @Column
     private String Administrativo;
@@ -96,15 +92,15 @@ public class Financeiro {
     @Column
     private int cdMovimento;
 
-    @OneToMany(targetEntity = Itens.class, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(targetEntity = Itens.class, cascade = CascadeType.MERGE,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<Itens> Itens ;
 
-    @OneToMany(targetEntity = Recebimento.class, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(targetEntity = Recebimento.class, cascade = CascadeType.MERGE,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<Recebimento> Recebimento ;
 
-    @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.MERGE,orphanRemoval = true)
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
     private List<TipoFornecedor> TipoFornecedor ;
     @Column

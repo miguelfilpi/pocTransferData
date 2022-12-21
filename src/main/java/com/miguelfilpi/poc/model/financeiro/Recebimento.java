@@ -2,17 +2,16 @@ package com.miguelfilpi.poc.model.financeiro;
 
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "DM_RECEBIMENTO")
 public class Recebimento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Column
     private String Conta;
     @Column
@@ -32,6 +31,7 @@ public class Recebimento {
     @Column(insertable=false, nullable=true)
     private int cdFinanceiro;
     @Column
+    @Id
     private int cdPagamento;
 
 }

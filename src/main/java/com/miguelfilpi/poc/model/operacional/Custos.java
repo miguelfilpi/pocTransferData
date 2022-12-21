@@ -2,17 +2,19 @@ package com.miguelfilpi.poc.model.operacional;
 
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "DM_CUSTOS")
 public class Custos {
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id;*/
     @Column
     private int Ordem;
     @Column
@@ -50,7 +52,7 @@ public class Custos {
     private String Sacado;
     @Column
     private int cdMovimento;
-
     @Column
+    @Id
     private int cdCusto;
 }

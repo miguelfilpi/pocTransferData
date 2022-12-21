@@ -1,21 +1,21 @@
 package com.miguelfilpi.poc.model.financeiro;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "DM_TIPOFORNECEDOR")
 public class TipoFornecedor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Column
     private int cdPessoa;
-    @Column(insertable=false, nullable=true)
+    @Column
+    @Id
     private int cdFinanceiro;
     @Column
     private String tipo;

@@ -3,26 +3,22 @@ package com.miguelfilpi.poc.model.comercial;
 import com.google.gson.annotations.SerializedName;
 import com.miguelfilpi.poc.model.operacional.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "DW_COMERCIAL")
 public class Comercial {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Column
     private int Oferta;
     @Column
     private int cdOferta;
+    @Id
     @Column
     private int cdMovimento;
     @Column
@@ -137,19 +133,19 @@ public class Comercial {
     @Column
     @SerializedName("Percentual MC")
     private String percentual_MC;                      //VALOR EM STRING!
-    @OneToMany(targetEntity = Container.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Container.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Container> Container;
-    @OneToMany(targetEntity = Volumes.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Volumes.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Volumes> Volumes;
-    @OneToMany(targetEntity = Fornecedores.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Fornecedores.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Fornecedores> Fornecedores;
-    @OneToMany(targetEntity = Transbordo.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Transbordo.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Transbordo> Transbordo;
-    @OneToMany(targetEntity = Custos.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Custos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Custos> Custos;
     @Column
@@ -181,10 +177,10 @@ public class Comercial {
     @Column
     @SerializedName("Solicitação")
     private String solicitacao;
-    @OneToMany(targetEntity = NCMs.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = NCMs.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<NCMs> NCMs;
-    @OneToMany(targetEntity = Servicos.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Servicos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Servicos> Servicos;
     @Column

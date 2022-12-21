@@ -2,6 +2,7 @@ package com.miguelfilpi.poc.model.operacional;
 
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,16 +11,16 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "DM_CONTAINER")
 public class Container implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
     @Column
     private int Qtd;
     @Column
     private int cdMovimento;
     @Column
+    @Id
     private int cdMovimentoEquipamento;
     @Column
     private String Container;

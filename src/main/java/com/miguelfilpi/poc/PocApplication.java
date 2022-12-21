@@ -17,6 +17,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -28,41 +29,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @SpringBootApplication
-public class PocApplication implements CommandLineRunner {
-
-	@Autowired
-	FinanceiroRepository financeiroRepository;
-	@Autowired
-	OperacionalRepository operacionalRepository;
-	@Autowired
-	ComercialRepository comercialRepository;
-
+@EnableScheduling
+public class PocApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PocApplication.class, args);
-
 	}
-
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		List<Financeiro> financeiroList = new ArrayList<>();
-		List<Operacional> operacionalList = new ArrayList<>();
-		List<Comercial> comercialList = new ArrayList<>();
-		TransferService ts = new TransferService();
-		financeiroList = ts.requisicaoFinanceiro(ts.retrieveBearerToken());
-		operacionalList = ts.requisicaoOperacional(ts.retrieveBearerToken());
-		comercialList = ts.requisicaoComercial(ts.retrieveBearerToken());
-		comercialRepository.saveAllAndFlush(comercialList);
-		System.out.println("Comercial Salvo!");
-		operacionalRepository.saveAllAndFlush(operacionalList);
-		System.out.println("Informaćão Operacional salva!");
-		financeiroRepository.saveAllAndFlush(financeiroList);
-		System.out.println("Informaćão Financeiro salva!");
-
-	}
-
 
 }
 

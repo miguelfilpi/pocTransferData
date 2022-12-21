@@ -1,32 +1,27 @@
 package com.miguelfilpi.poc.model.operacional;
 
 import com.google.gson.annotations.SerializedName;
-import com.miguelfilpi.poc.model.comercial.Comercial;
 import com.miguelfilpi.poc.model.comercial.NCMs;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "DW_OPERACIONAL")
 public class Operacional implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
     @Column
     @Lob
     private String Processo;
     @Column
+    @Id
     private int cdMovimento;
     @Column
     private int cdOferta;
@@ -402,25 +397,24 @@ public class Operacional implements Serializable {
     @SerializedName("Data de emissão do House")
     private String dt_emissao_house;
 
-    @OneToMany(targetEntity = Container.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Container> Container;
-    @OneToMany(targetEntity = Volumes.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Volumes> Volumes;
-    @OneToMany(targetEntity = Servicos.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Servicos> Servicos;
-
-    @OneToMany(targetEntity = NCMs.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Container.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
-    private List<NCMs> NCMs;
-    @OneToMany(targetEntity = Transbordo.class, cascade = CascadeType.ALL)
+    private Set<Container> Container;
+    @OneToMany(targetEntity = Volumes.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<Volumes> Volumes;
+    @OneToMany(targetEntity = Servicos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<Servicos> Servicos;
+    @OneToMany(targetEntity = NCMs.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<NCMs> NCMs;
+    @OneToMany(targetEntity = Transbordo.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Transbordo> Transbordo;
-    @OneToMany(targetEntity = Custos.class, cascade = CascadeType.ALL)
+    private Set<Transbordo> Transbordo;
+    @OneToMany(targetEntity = Custos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Custos> Custos;
+    private Set<Custos> Custos;
     @Column
     @Lob
     @SerializedName("Tipo de frete")
@@ -459,9 +453,9 @@ public class Operacional implements Serializable {
     @Lob
     @SerializedName("Status Ocean insights")
     private String status_ocean_insights;
-    @OneToMany(targetEntity = Agendas.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Agendas> Agendas;
+    @OneToMany(targetEntity = Agendas.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<Agendas> Agendas;
     @Column
     @Lob
     private String Status;
@@ -471,12 +465,12 @@ public class Operacional implements Serializable {
     @Column
     @Lob
     private String Notify;
-    @OneToMany(targetEntity = Importador.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Importador> Importador;
-    @OneToMany(targetEntity = Exportador.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
-    private List<Exportador> Exportador;
+    @OneToMany(targetEntity = Importador.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<Importador> Importador;
+    @OneToMany(targetEntity = Exportador.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
+    private Set<Exportador> Exportador;
     @Column
     @Lob
     @SerializedName("Moeda invoice")
@@ -529,18 +523,6 @@ public class Operacional implements Serializable {
     private String qtd_containers;
     @Column
     private String dtUltimaAtualizacao;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Operacional that)) return false;
-        return cdMovimento == that.cdMovimento;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cdMovimento);
-    }
 
 
 }
