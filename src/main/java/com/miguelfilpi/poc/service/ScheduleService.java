@@ -39,15 +39,12 @@ public class ScheduleService {
         financeiroList = ts.requisicaoFinanceiro(ts.retrieveBearerToken());
         operacionalList = ts.requisicaoOperacional(ts.retrieveBearerToken());
         comercialList = ts.requisicaoComercial(ts.retrieveBearerToken());
-        comercialRepository.deleteAllInBatch();
         comercialRepository.flush();
         comercialRepository.saveAllAndFlush(comercialList);
         System.out.println("Comercial Salvo!");
-        operacionalRepository.deleteAllInBatch();
         operacionalRepository.flush();
         operacionalRepository.saveAllAndFlush(operacionalList);
         System.out.println("Informaćão Operacional salva!");
-        financeiroRepository.deleteAllInBatch();
         financeiroRepository.flush();
         financeiroRepository.saveAllAndFlush(financeiroList);
         System.out.println("Informaćão Financeiro salva!");

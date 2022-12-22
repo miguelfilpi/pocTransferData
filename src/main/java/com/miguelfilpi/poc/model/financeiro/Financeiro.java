@@ -3,6 +3,7 @@ package com.miguelfilpi.poc.model.financeiro;
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.mapping.Set;
 
 import java.util.List;
 import java.util.Objects;
@@ -92,17 +93,17 @@ public class Financeiro {
     @Column
     private int cdMovimento;
 
-    @OneToMany(targetEntity = Itens.class, cascade = CascadeType.MERGE,orphanRemoval = true)
+    @OneToMany(targetEntity = Itens.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
-    private List<Itens> Itens ;
+    private List<Itens> Itens;
 
-    @OneToMany(targetEntity = Recebimento.class, cascade = CascadeType.MERGE,orphanRemoval = true)
+    @OneToMany(targetEntity = Recebimento.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
-    private List<Recebimento> Recebimento ;
+    private List<Recebimento> Recebimento;
 
-    @OneToMany(targetEntity = TipoFornecedor.class, cascade = CascadeType.MERGE,orphanRemoval = true)
+    @OneToMany(targetEntity = TipoFornecedor.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
-    private List<TipoFornecedor> TipoFornecedor ;
+    private List<TipoFornecedor> TipoFornecedor;
     @Column
     private String dtUltimaAtualizacao;
 
