@@ -77,13 +77,11 @@ public class Comercial {
     @SerializedName("BL direto")
     private String bl_direto;
     @Column
-    @Lob
     @SerializedName("Transit Time")
-    private String transit_time;
+    private Integer transit_time;
     @Column
-    @Lob
     @SerializedName("Histórico")
-    private String historico;
+    private Integer historico;
     @Column
     @Lob
     @SerializedName("Numero Spot")
@@ -217,21 +215,17 @@ public class Comercial {
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<Servicos> Servicos;
     @Column
-    @Lob
     @SerializedName("Transit Time de")
-    private String transit_time_de;
+    private Integer transit_time_de;
     @Column
-    @Lob
     @SerializedName("Transit Time ate")
-    private String transit_time_ate;
+    private Integer transit_time_ate;
     @Column
-    @Lob
     @SerializedName("Transit Time coleta de")
-    private String transit_time_coleta_de;
+    private Integer transit_time_coleta_de;
     @Column
-    @Lob
     @SerializedName("Transit Time coleta ate")
-    private String transit_time_coleta_ate;
+    private Integer transit_time_coleta_ate;
     @Column
     @Lob
     @SerializedName("Pais de entrega")

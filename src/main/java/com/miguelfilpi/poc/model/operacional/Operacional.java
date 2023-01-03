@@ -18,7 +18,6 @@ import java.util.Set;
 public class Operacional implements Serializable {
 
     @Column
-    @Lob
     private String Processo;
     @Column
     @Id
@@ -28,19 +27,15 @@ public class Operacional implements Serializable {
     @Column
     private int cdTrafego;
     @Column
-    @Lob
     @SerializedName("Validade frete")
     private String validade_frete;
     @Column
-    @Lob
     @SerializedName("Data abertura")
     private String data_abertura;
     @Column
-    @Lob
     @SerializedName("Data encerramento")
     private String data_encerramento;
     @Column
-    @Lob
     private String Produto;
     @Column
     @Lob
@@ -63,7 +58,6 @@ public class Operacional implements Serializable {
     @Lob
     private String Intermediario;
     @Column
-    @Lob
     private String Pricing;
     @Column
     @Lob
@@ -79,141 +73,107 @@ public class Operacional implements Serializable {
     @SerializedName("Agente triangular")
     private String Agente_triangular;
     @Column
-    @Lob
     @SerializedName("País de Origem")
     private String pais_origem;
     @Column
-    @Lob
     private String Incoterm;
     @Column
-    @Lob
     @SerializedName("Origem de carga")
     private String origem_carga;
     @Column
-    @Lob
     private String Origem;
     @Column
     @Lob
     @SerializedName("Trade lane origem")
     private String trade_lane_origem;
     @Column
-    @Lob
     private String Destino;
     @Column
     @Lob
     @SerializedName("Trade lane destino")
     private String trade_lane_destino;
     @Column
-    @Lob
     private String Booking;
     @Column
-    @Lob
     @SerializedName("Previsão de embarque Booking")
     private String previsao_embarque_booking;
     @Column
-    @Lob
     @SerializedName("Previsão de chegada Booking")
     private String previsao_chegada_booking;
     @Column
-    @Lob
     @SerializedName("Navio Feeder")
     private String navio_feeder;
     @Column
-    @Lob
     @SerializedName("Viagem Feeder")
     private String viagem_feeder;
     @Column
-    @Lob
     private String Master;
     @Column
-    @Lob
     private String House;
     @Column
-    @Lob
     private String Courier;
     @Column
-    @Lob
     private String Navio;
     @Column
-    @Lob
     private String Viagem;
     @Column
-    @Lob
     @SerializedName("Navio Final")
     private String navio_final;
     @Column
-    @Lob
     @SerializedName("Viagem Final")
     private String viagem_final;
     @Column
     @Lob
     private String Terminal;
     @Column
-    @Lob
     @SerializedName("Prontidão de carga")
     private String prontidao_carga;
     @Column
-    @Lob
     @SerializedName("Previsão de embarque (Feeder)")
     private String previsao_embarque_feeder;
     @Column
-    @Lob
     @SerializedName("Confirmação de embarque (Feeder)")
     private String confirmacao_embarque_feeder;
     @Column
-    @Lob
     @SerializedName("Previsão de embarque")
     private String previsao_embarque;
     @Column
-    @Lob
     @SerializedName("Confirmação de embarque")
     private String confirmacao_embarque;
     @Column
-    @Lob
     @SerializedName("Previsão de atracação")
     private String previsao_atracacao;
     @Column
-    @Lob
     @SerializedName("Confirmação de atracação")
     private String confirmacao_atracacao;
     @Column
-    @Lob
     @SerializedName("Data de desatracação")
     private String data_desatracacao;
     @Column
-    @Lob
     @SerializedName("Data de DTA")
     private String data_de_dta;
     @Column
-    @Lob
     @SerializedName("Destino DTA")
     private String destino_dta;
     @Column
-    @Lob
     @SerializedName("Número DTA")
     private String numero_dta;
     @Column
-    @Lob
     @SerializedName("Solicitação DTA")
     private String solicitacao_dta;
     @Column
-    @Lob
     @SerializedName("Data de Pré-Aviso de Chegada")
     private String data_preaviso_chegada;
     @Column
-    @Lob
     @SerializedName("Transit Time de (Dias)")
     private String transit_time_de_dias;
     @Column
-    @Lob
     @SerializedName("Transit Time ate (Dias)")
     private String transit_time_ate_dias;
     @Column
-    @Lob
     @SerializedName("Transit Time previsto (Dias)")
     private String transit_time_previsto_dias;
     @Column
-    @Lob
     @SerializedName("Transit Time cumprido (Dias)")
     private String transit_time_cumprido_dias;
     @Column
@@ -221,7 +181,7 @@ public class Operacional implements Serializable {
     @SerializedName("Link para Restreio")
     private String link_rastreio;
     @Column
-    @Lob
+
     @SerializedName("Data do link de rastreio")
     private String data_link_rastreio;
     @Column
@@ -460,7 +420,6 @@ public class Operacional implements Serializable {
     @Lob
     private String Status;
     @Column
-    @Lob
     private String Consignee;
     @Column
     @Lob
@@ -523,6 +482,5 @@ public class Operacional implements Serializable {
     private String qtd_containers;
     @Column
     private String dtUltimaAtualizacao;
-
 
 }

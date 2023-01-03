@@ -12,11 +12,11 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Table(name = "DM_SERVICOS")
 public class Servicos {
-/*    @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;*/
+    private long id;
     @Column
-    @SerializedName("Serviço")
+    @SerializedName(value = "Serviço", alternate= "servico")
     private String servico;
     @Column
     private String Fornecedor;
@@ -27,8 +27,6 @@ public class Servicos {
     @Column
     private int cdOferta;
     @Column
-    @Id
     private int cdOfertaServico;
-
 
 }
