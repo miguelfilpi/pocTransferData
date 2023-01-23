@@ -4,8 +4,10 @@ import com.google.gson.annotations.SerializedName;
 import com.miguelfilpi.poc.model.comercial.NCMs;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode
+@DynamicUpdate
 @Table(name = "DW_OPERACIONAL")
 public class Operacional implements Serializable {
 
@@ -363,17 +366,17 @@ public class Operacional implements Serializable {
     @OneToMany(targetEntity = Volumes.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private Set<Volumes> Volumes;
-    @OneToMany(targetEntity = Servicos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @OneToMany(targetEntity = ServicosOperacional.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
-    private Set<Servicos> Servicos;
+    private List<ServicosOperacional> Servicos;
     @OneToMany(targetEntity = NCMs.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private Set<NCMs> NCMs;
     @OneToMany(targetEntity = Transbordo.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private Set<Transbordo> Transbordo;
     @OneToMany(targetEntity = Custos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento", nullable = true)
+    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private Set<Custos> Custos;
     @Column
     @Lob
@@ -383,11 +386,10 @@ public class Operacional implements Serializable {
     @Lob
     @SerializedName("Ref Agente")
     private String ref_agente;
-    @Column
+    @Column(length = 1000000000)
     @Lob
     private String Invoice;
     @Column
-    @Lob
     @SerializedName("Purchase order")
     private String purchase_order;
     @Column

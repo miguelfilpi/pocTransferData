@@ -1,5 +1,6 @@
 package com.miguelfilpi.poc.service;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelfilpi.poc.model.comercial.Comercial;
@@ -16,9 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TransferService {
@@ -58,6 +57,7 @@ public class TransferService {
     public List<Comercial> requisicaoComercial(String token) throws URISyntaxException, IOException, InterruptedException {
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
+        List<Comercial> enums = new ArrayList<>();
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/comercial"))
                 .header("Authorization", "Bearer " + token)
@@ -65,10 +65,13 @@ public class TransferService {
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .build();
         HttpClient httpClient = HttpClient.newHttpClient();
-        HttpResponse<String> postResponseComercial = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-        Type collectionType = new TypeToken<List<Comercial>>(){}.getType();
-        List<Comercial> enums = gson.fromJson(postResponseComercial.body(), collectionType);
-
+        try{
+            HttpResponse<String> postResponseComercial = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+            Type collectionType = new TypeToken<List<Comercial>>(){}.getType();
+            enums = gson.fromJson(postResponseComercial.body(), collectionType);
+        } catch (Exception e){
+            System.out.printf("Erro no bloco Comercial pois: %s", e.getMessage());
+        }
         //System.out.println(postResponseComercial.body());
         return enums;
     }
@@ -77,6 +80,7 @@ public class TransferService {
 
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(requestBodyService);
+        List<Operacional> enums = new ArrayList<>();
 
         HttpRequest postRequestOperacional = HttpRequest.newBuilder()
                 .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/operacional"))
@@ -85,10 +89,14 @@ public class TransferService {
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .build();
         HttpClient httpClientOperacional = HttpClient.newHttpClient();
-        HttpResponse<String> postResponseOperacional = httpClientOperacional.send(postRequestOperacional, HttpResponse.BodyHandlers.ofString());
 
+        try{
+        HttpResponse<String> postResponseOperacional = httpClientOperacional.send(postRequestOperacional, HttpResponse.BodyHandlers.ofString());
         Type collectionType = new TypeToken<List<Operacional>>(){}.getType();
-        List<Operacional> enums = gson.fromJson(postResponseOperacional.body(), collectionType);
+        enums = gson.fromJson(postResponseOperacional.body(), collectionType);
+        } catch (Exception e){
+            System.out.printf("Erro no bloco Operacional pois: %s", e.getMessage());
+        }
         //System.out.println(postResponseOperacional.body());
         return enums;
     }
@@ -97,6 +105,7 @@ public class TransferService {
 
         Gson gsonFinanceiro = new Gson();
         String jsonResponseFinanceiro = gsonFinanceiro.toJson(requestBodyService);
+        List<Financeiro> enums = new ArrayList<>();
 
         HttpRequest postRequestFinanceiro = HttpRequest.newBuilder()
                 .uri(new URI("https://app2.skychart.com.br/apiskyline-delphi/api/IntegracaoBi/financeiro"))
@@ -106,12 +115,15 @@ public class TransferService {
                 .build();
         HttpClient httpClientFinanceiro = HttpClient.newHttpClient();
 
-        HttpResponse<String> postResponseFinanceiro = httpClientFinanceiro.send(postRequestFinanceiro, HttpResponse.BodyHandlers.ofString());
-        System.out.println(postResponseFinanceiro.body());
-
-        //Formatando a classe Financeiro para lista -> Json comeća com [ logo indica array
-        Type collectionType = new TypeToken<List<Financeiro>>(){}.getType();
-        List<Financeiro> enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
+        try{
+            HttpResponse<String> postResponseFinanceiro = httpClientFinanceiro.send(postRequestFinanceiro, HttpResponse.BodyHandlers.ofString());
+            Type collectionType = new TypeToken<List<Financeiro>>(){}.getType();
+            //Formatando a classe Financeiro para lista -> Json comeća com [ logo indica array
+            enums = gsonFinanceiro.fromJson(postResponseFinanceiro.body(), collectionType);
+        } catch (Exception e){
+            System.out.printf("Erro no bloco Financeiro pois: %s", e.getMessage());
+        }
+        //System.out.println(postResponseFinanceiro.body());
         return enums;
     }
 }

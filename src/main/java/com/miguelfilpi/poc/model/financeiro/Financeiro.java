@@ -3,20 +3,26 @@ package com.miguelfilpi.poc.model.financeiro;
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.mapping.Set;
+import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@DynamicUpdate
 @Entity
 @Table(name = "DW_FINANCEIRO")
 public class Financeiro {
 
+/*    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;*/
     @Column
     @SerializedName("Tipo financeiro")
     private String tipo_financeiro;
@@ -91,18 +97,18 @@ public class Financeiro {
     @Column
     private String IR;
     @Column
-    private int cdMovimento;
+    private Integer cdMovimento;
 
     @OneToMany(targetEntity = Itens.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
-    private List<Itens> Itens;
+    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro")
+    private Set<Itens> Itens = new HashSet<Itens>();
 
     @OneToMany(targetEntity = Recebimento.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
+    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro")
     private List<Recebimento> Recebimento;
 
     @OneToMany(targetEntity = TipoFornecedor.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro", nullable = true)
+    @JoinColumn(name = "cdFinanceiro", referencedColumnName = "cdFinanceiro")
     private List<TipoFornecedor> TipoFornecedor;
     @Column
     private String dtUltimaAtualizacao;

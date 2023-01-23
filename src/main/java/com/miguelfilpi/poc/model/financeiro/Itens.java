@@ -56,6 +56,4 @@ public class Itens {
     @Column
     @SerializedName("Centro custo")
     private String centro_custo;
-
-
 }

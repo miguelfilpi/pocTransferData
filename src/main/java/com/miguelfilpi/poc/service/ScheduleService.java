@@ -11,14 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 @Component
 public class ScheduleService {
@@ -30,7 +28,7 @@ public class ScheduleService {
     ComercialRepository comercialRepository;
     private static final Logger log = LoggerFactory.getLogger(ScheduleService.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() throws URISyntaxException, IOException, InterruptedException {
         List<Financeiro> financeiroList = new ArrayList<>();
         List<Operacional> operacionalList = new ArrayList<>();

@@ -11,7 +11,6 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Table(name = "DM_TIPOFORNECEDOR")
 public class TipoFornecedor {
-
     @Column
     private int cdPessoa;
     @Column
@@ -19,5 +18,4 @@ public class TipoFornecedor {
     private int cdFinanceiro;
     @Column
     private String tipo;
-
 }

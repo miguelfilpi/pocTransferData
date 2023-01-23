@@ -4,13 +4,18 @@ import com.google.gson.annotations.SerializedName;
 import com.miguelfilpi.poc.model.operacional.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@DynamicUpdate
 @Entity
 @Table(name = "DW_COMERCIAL")
 public class Comercial {
@@ -189,6 +194,7 @@ public class Comercial {
     @Lob
     @SerializedName("Tipo de cotação")
     private String tipo_cotacao;
+
     @Column
     @Lob
     private String Invoice;
@@ -211,9 +217,9 @@ public class Comercial {
     @OneToMany(targetEntity = NCMs.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
     private List<NCMs> NCMs;
-    @OneToMany(targetEntity = Servicos.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "cdMovimento", referencedColumnName = "cdMovimento")
-    private List<Servicos> Servicos;
+    @OneToMany(targetEntity = ServicosComercial.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "cdOferta")
+    private Set<ServicosComercial> Servicos = new HashSet<ServicosComercial>();
     @Column
     @SerializedName("Transit Time de")
     private Integer transit_time_de;

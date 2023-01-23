@@ -28,7 +28,7 @@ public class Recebimento {
     @Column
     @SerializedName("Data inserido")
     private String data_inserido;
-    @Column(insertable=false, nullable=true)
+    @Column
     private int cdFinanceiro;
     @Column
     @Id

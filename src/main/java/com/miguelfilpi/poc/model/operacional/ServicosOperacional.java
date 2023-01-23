@@ -5,28 +5,23 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "DM_SERVICOS")
-public class Servicos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@Table(name = "DM_SERVICOS_OP")
+public class ServicosOperacional implements Serializable {
     @Column
-    @SerializedName(value = "Serviço", alternate= "servico")
+    @SerializedName("Serviço")
     private String servico;
     @Column
     private String Fornecedor;
     @Column
-    private int cdMovimento;
+    private Integer cdMovimento;
+    @Id
     @Column
     private int cdOcsServico;
-    @Column
-    private int cdOferta;
-    @Column
-    private int cdOfertaServico;
 
 }
